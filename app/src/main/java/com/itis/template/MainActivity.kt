@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.itis.template.databinding.ActivityMainBinding
+import kotlin.random.Random
 import android.graphics.Color as AndroidColor
 
 class MainActivity : AppCompatActivity() {
@@ -25,39 +26,10 @@ class MainActivity : AppCompatActivity() {
         }
         binding?.run {
 
-            savedInstanceState?.getInt(ARG_SCORE)?.let {
-                score = it
-                tvHelloMessage1.text = "score: $it"
-            }
-
-            tvHelloMessage.setOnClickListener { btn ->
-                score++
-                tvHelloMessage1.text = "score: $score"
-            }
-
-            image.setOnClickListener {
-                sendImplictIntent()
-            }
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, ProfileFragment(), "TAg")
+                .commit()
         }
-    }
-
-    private fun sendImplictIntent() {
-        val intent = Intent(Intent.ACTION_DIAL).apply {
-            data = Uri.parse("tel:$+78005553535®")
-        }
-        if (intent.resolveActivity(packageManager) != null) {
-            startActivity(intent)
-        }
-
-        val chooserIntent = Intent.createChooser(
-            intent,
-            "HIHI I am murlock"
-        )
-
-        if (chooserIntent.resolveActivity(packageManager) != null) {
-            startActivity(chooserIntent)
-        }
-
     }
 
     companion object {

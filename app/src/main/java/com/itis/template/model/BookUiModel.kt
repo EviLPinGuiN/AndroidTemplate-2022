@@ -3,11 +3,17 @@ package com.itis.template.model
 import androidx.annotation.ColorRes
 import androidx.annotation.FontRes
 
-data class BookUiModel(
-    val id: Int,
-    val name: String,
-    val author: String,
-    val cover: String,
-    @ColorRes val titleColor: Int,
-    @FontRes val font: Int
-)
+sealed interface MainItem {
+
+    data class Title(val title: String) : MainItem
+
+    data class BookUiModel(
+        val id: Long,
+        val name: String,
+        val author: String,
+        val cover: String,
+        val isFavorite: Boolean,
+        @ColorRes val titleColor: Int,
+        @FontRes val font: Int
+    ) : MainItem
+}

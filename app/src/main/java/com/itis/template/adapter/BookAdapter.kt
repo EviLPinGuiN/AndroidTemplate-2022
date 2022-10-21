@@ -1,36 +1,39 @@
 package com.itis.template.adapter
 
-import android.view.LayoutInflater
+import android.os.Bundle
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.RequestManager
-import com.itis.template.model.BookUiModel
-import com.itis.template.databinding.ItemBookBinding
+import com.itis.template.model.MainItem
 
 class BookAdapter(
-    private val list: List<BookUiModel>,
+    private val list: List<MainItem.BookUiModel>,
     private val glide: RequestManager,
-    private val action: (BookUiModel) -> Unit,
+    private val action: (MainItem.BookUiModel) -> Unit,
 ) : RecyclerView.Adapter<BookItem>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BookItem = BookItem(
-        binding = ItemBookBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        ),
-        glide = glide,
-        action = action
-    )
+    ): BookItem = BookItem.create(parent, glide, action)
 
     override fun onBindViewHolder(
         holder: BookItem,
         position: Int
     ) {
         holder.onBind(list[position])
+    }
+
+    override fun onBindViewHolder(
+        holder: BookItem,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isEmpty()) {
+            super.onBindViewHolder(holder, position, payloads)
+        } else {
+            holder.onBind(list[position], payloads)
+        }
     }
 
     override fun getItemCount(): Int = list.size

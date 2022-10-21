@@ -42,11 +42,12 @@
         app:layout_constraintTop_toBottomOf="@id/tv_title"
         tools:text="Lev Pushkin" />
 
-    <CheckBox
-        android:id="@+id/checkbox"
+    <ImageView
+        android:id="@+id/iv_mood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_baseline_mood" />
 </androidx.constraintlayout.widget.ConstraintLayout>

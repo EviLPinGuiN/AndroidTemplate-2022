@@ -1,6 +1,7 @@
 package com.itis.template.model
 
 import com.itis.template.R
+import com.itis.template.adapter.TitleItem
 
 object BookRepository {
 
@@ -69,25 +70,34 @@ object BookRepository {
         )
 
 
-    val booksUI = books.map {
-        val titleColor = if (it.name == "Naruto")
-            R.color.purple_700
-        else
-            R.color.black
+    val booksUI: MutableList<MainItem.BookUiModel>
+        get() = books.map {
+            val titleColor = if (it.name == "Naruto")
+                R.color.purple_700
+            else
+                R.color.black
 
-        val font = if (it.name.length > 5) {
-            R.font.alkalami
-        } else {
-            R.font.silkscreen
-        }
+            val font = if (it.name.length > 5) {
+                R.font.alkalami
+            } else {
+                R.font.silkscreen
+            }
 
-        BookUiModel(
-            id = it.id,
-            name = it.name,
-            author = it.author,
-            cover = it.cover,
-            titleColor = titleColor,
-            font = font
-        )
+            MainItem.BookUiModel(
+                id = it.id.toLong(),
+                name = it.name,
+                author = it.author,
+                cover = it.cover,
+                isFavorite = it.isFavorite,
+                titleColor = titleColor,
+                font = font
+            )
+        }.toMutableList()
+
+    val mainItems = arrayListOf<MainItem>().apply {
+        add(MainItem.Title("Most popular"))
+        addAll(booksUI.take(4))
+        add(MainItem.Title("Most viewed"))
+        addAll(booksUI.subList(4, booksUI.size))
     }
 }

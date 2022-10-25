@@ -12,4 +12,6 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/hello_blank_fragment" />
+
+    <include layout="@layout/layout_user_field"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
@@ -28,21 +29,25 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         )
 
         return
-       showDialog(
-           title = "New title",
-           positiveAction = {
-               parentFragmentManager.beginTransaction()
-                   .replace(R.id.container, ProfileFragment())
-                   .commit()
-           },
-           negativeAction = {},
-           neutralAction = {}
-       )
+        showDialog(
+            title = "New title",
+            positiveAction = {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.host_fragment, ProfileFragment())
+                    .commit()
+            },
+            negativeAction = {},
+            neutralAction = {}
+        )
     }
 
     companion object {
 
         private const val ARG_NAME = "name_arg"
+
+        fun bundle(name: String) = Bundle().apply {
+            putString(ARG_NAME, name)
+        }
 
         fun newInstance(name: String) = HomeFragment().apply {
             arguments = Bundle().apply {

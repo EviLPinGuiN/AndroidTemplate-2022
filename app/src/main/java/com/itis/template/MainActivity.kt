@@ -8,6 +8,8 @@ class MainActivity : AppCompatActivity() {
 
     private var binding: ActivityMainBinding? = null
 
+    private var notificationProvider: NotificationProvider? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // from binding
@@ -17,5 +19,16 @@ class MainActivity : AppCompatActivity() {
         binding?.run {
 
         }
+
+        notificationProvider = NotificationProvider(this)
+        notificationProvider?.showNotification(
+            title = "Hellow",
+            text = "Мяяяуууу"
+        )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        notificationProvider = null
     }
 }

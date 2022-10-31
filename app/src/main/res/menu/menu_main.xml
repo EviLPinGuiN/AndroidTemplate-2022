@@ -7,7 +7,7 @@
         android:title="Main" />
 
     <item
-        android:id="@+id/profileFragment"
+        android:id="@+id/graph_profile"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="Profile" />
 

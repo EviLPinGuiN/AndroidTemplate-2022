@@ -1,0 +1,8 @@
+<resources>
+
+    <style name="SmallShape" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerSize">12dp</item>
+        <item name="cornerFamilyBottomRight">cut</item>
+    </style>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Text.H1" parent="TextAppearance.MaterialComponents.Headline1">
+
+    </style>
+
+    <style name="Text.H2" parent="TextAppearance.MaterialComponents.Button">
+
+    </style>
+</resources>

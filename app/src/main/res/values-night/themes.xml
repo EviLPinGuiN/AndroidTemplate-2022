@@ -12,5 +12,12 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="textAppearanceHeadline1">@style/Text.H1</item>
+        <item name="textAppearanceHeadline2">@style/Text.H2</item>
+
+        <item name="shapeAppearanceSmallComponent">@style/SmallShape</item>
     </style>
+
+
 </resources>

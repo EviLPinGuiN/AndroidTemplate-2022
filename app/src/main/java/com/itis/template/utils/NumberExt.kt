@@ -3,11 +3,8 @@ package com.itis.template.utils
 import android.app.Notification
 import android.content.Context
 import androidx.core.app.NotificationCompat
-import com.itis.template.MainActivity
 import com.itis.template.Test
 import com.itis.template.User
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 infix fun Int.`привет_мой_друг`(value: Int): Int = this + value * 10
 

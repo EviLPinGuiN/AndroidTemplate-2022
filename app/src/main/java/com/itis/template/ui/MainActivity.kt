@@ -1,14 +1,15 @@
-package com.itis.template
+package com.itis.template.ui
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.itis.template.User
+import com.itis.template.data.AuthorRepository
+import com.itis.template.data.entity.Author
 import com.itis.template.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
 import java.lang.Exception
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         println("Oh shit, here we go again: $exception")
     }
 
+    private var repository: AuthorRepository? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        repository = AuthorRepository(this)
 //        buildNotification(channelId = "sdsad") {
 //            setSmallIcon()
 //            setCategory()
@@ -38,6 +41,21 @@ class MainActivity : AppCompatActivity() {
 //        }
 
         lifecycleScope.launch {
+            repository?.getAllAuthors()
+
+            repository?.saveAuthor(Author(1, "Pushkin"))
+        }
+
+        lifecycleScope.launch {
+//            val result = withContext(Dispatchers.IO) {
+//                repository?.getAllAuthors() ?: listOf()
+//            }
+//            adapter.submitView(repository?.getAllAuthors() ?: listOf())
+
+            repository?.getAllAuthors()?.let {
+
+            }
+
             val result = getUserFromBE()
             binding?.tvHelloMessage?.text = result.name
         }
@@ -71,7 +89,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-
+        repository = null
         scope.cancel()
     }
 
@@ -81,23 +99,5 @@ class MainActivity : AppCompatActivity() {
         if (delay <= 1000L) throw RuntimeException("ERROR!!!")
         delay(delay)
         User("sdsd")
-    }
-
-
-    private suspend fun insertUserToDb(
-        user: User
-    ): User = withContext(Dispatchers.IO) {
-        database.insert(user)
-
-        fetchDataFromSdk()
-        user
-    }
-
-    suspend fun fetchDataFromSdk() = suspendCancellableCoroutine<String> {
-        SDK.addSuccessListner {
-            it.resume("it.name")
-        }.addErrorListner { it: Throwalbe->
-            it.resumeWithException(Throwable(it.message))
-        }
     }
 }

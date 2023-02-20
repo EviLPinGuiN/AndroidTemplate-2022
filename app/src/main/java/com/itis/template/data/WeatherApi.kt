@@ -13,6 +13,7 @@ interface WeatherApi {
         @Query("units") units: String = "metric",
     ): WeatherResponse
 
+    @GET("weather")
     suspend fun getWeather(
         @QueryMap map: Map<String, Any>
     ): WeatherResponse

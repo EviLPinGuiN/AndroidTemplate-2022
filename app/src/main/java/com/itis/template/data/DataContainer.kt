@@ -2,7 +2,6 @@ package com.itis.template.data
 
 import com.itis.template.BuildConfig
 import com.itis.template.data.interceptor.ApiKeyInterceptor
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

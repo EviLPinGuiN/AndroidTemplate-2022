@@ -21,7 +21,6 @@ fun View.showSnackbar(
     .show()
 
 fun View.hideKeyboard() {
-    (context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)?.also {
-        it.hideSoftInputFromWindow(windowToken, 0)
-    }
+    (context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)
+        ?.hideSoftInputFromWindow(windowToken, 0)
 }

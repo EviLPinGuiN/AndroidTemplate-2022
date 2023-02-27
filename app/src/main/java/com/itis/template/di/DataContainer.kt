@@ -1,7 +1,10 @@
-package com.itis.template.data
+package com.itis.template.di
 
 import com.itis.template.BuildConfig
-import com.itis.template.data.interceptor.ApiKeyInterceptor
+import com.itis.template.data.weather.datasource.remote.WeatherApi
+import com.itis.template.data.weather.WeatherRepositoryImpl
+import com.itis.template.data.core.interceptor.ApiKeyInterceptor
+import com.itis.template.domain.weather.GetWeatherUseCase
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -36,5 +39,10 @@ object DataContainer {
             .build()
     }
 
-    val weatherApi = retrofit.create(WeatherApi::class.java)
+    private val weatherApi = retrofit.create(WeatherApi::class.java)
+
+    private val weatherRepository = WeatherRepositoryImpl(weatherApi)
+
+    val weatherUseCase: GetWeatherUseCase
+        get() = GetWeatherUseCase(weatherRepository)
 }

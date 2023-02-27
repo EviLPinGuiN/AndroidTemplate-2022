@@ -1,4 +1,4 @@
-package com.itis.template.data.response
+package com.itis.template.data.weather.datasource.remote.response
 
 import com.google.gson.annotations.SerializedName
 

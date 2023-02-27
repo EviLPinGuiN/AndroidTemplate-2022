@@ -1,4 +1,4 @@
-package com.itis.template.ui
+package com.itis.template.presentation
 
 import android.os.Bundle
 import android.view.View
@@ -7,8 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import coil.load
-import com.itis.template.data.DataContainer
+import com.itis.template.di.DataContainer
 import com.itis.template.databinding.ActivityWeatherBinding
+import com.itis.template.domain.weather.GetWeatherUseCase
 import com.itis.template.utils.hideKeyboard
 import com.itis.template.utils.showSnackbar
 import kotlinx.coroutines.launch
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private var binding: ActivityWeatherBinding? = null
 
-    private val api = DataContainer.weatherApi
+    private val getWeatherUseCase: GetWeatherUseCase = DataContainer.weatherUseCase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,11 +51,8 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 showLoading(true)
-                api.getWeather(query).also {
-                    showTemp(it.main.temp)
-                    it.weather.firstOrNull()?.also {
-                        showWeatherIcon(it.icon)
-                    }
+                getWeatherUseCase(query).also { weatherInfo ->
+                    showTemp(weatherInfo.temperature)
                 }
 
 //                api.getWeather(

@@ -1,6 +1,6 @@
-package com.itis.template.data
+package com.itis.template.data.weather.datasource.remote
 
-import com.itis.template.data.response.WeatherResponse
+import com.itis.template.data.weather.datasource.remote.response.WeatherResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.http.QueryMap

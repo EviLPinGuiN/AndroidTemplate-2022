@@ -1,4 +1,4 @@
-package com.itis.template.data.interceptor
+package com.itis.template.data.core.interceptor
 
 import com.itis.template.BuildConfig
 import okhttp3.Interceptor

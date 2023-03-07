@@ -7,7 +7,8 @@ fun WeatherResponse.toWeatherInfo(): WeatherInfo = WeatherInfo(
     temperature = main.temp,
     windSpeed = wind.speed,
     windDeg = wind.deg,
-    humidity = main.humidity
+    humidity = main.humidity,
+    icon = weather.first().icon
 )
 
 fun List<WeatherResponse>.toWeathers(): List<WeatherInfo> = map {

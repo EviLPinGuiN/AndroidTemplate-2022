@@ -1,10 +1,13 @@
 package com.itis.template.di
 
+import android.content.Context
 import com.itis.template.BuildConfig
 import com.itis.template.data.weather.datasource.remote.WeatherApi
 import com.itis.template.data.weather.WeatherRepositoryImpl
 import com.itis.template.data.core.interceptor.ApiKeyInterceptor
 import com.itis.template.domain.weather.GetWeatherUseCase
+import com.itis.template.utils.AndroidResourceProvider
+import com.itis.template.utils.ResourceProvider
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -45,4 +48,8 @@ object DataContainer {
 
     val weatherUseCase: GetWeatherUseCase
         get() = GetWeatherUseCase(weatherRepository)
+
+    fun provideResources(
+        applicationContext: Context
+    ): ResourceProvider = AndroidResourceProvider(applicationContext)
 }

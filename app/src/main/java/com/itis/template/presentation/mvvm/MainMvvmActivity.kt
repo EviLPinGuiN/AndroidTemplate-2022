@@ -8,22 +8,29 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import coil.load
+import com.itis.template.App
 import com.itis.template.databinding.ActivityWeatherBinding
+import com.itis.template.domain.weather.GetWeatherUseCase
 import com.itis.template.utils.showSnackbar
 import timber.log.Timber
+import javax.inject.Inject
 
 class MainMvvmActivity : AppCompatActivity() {
 
     private var binding: ActivityWeatherBinding? = null
 
+    @Inject
+    lateinit var getWeatherUseCase: GetWeatherUseCase
+
     private val viewModel: MainViewModel by viewModels {
-        MainViewModel.Factory
+        MainViewModel.provideFactory(getWeatherUseCase)
     }
 
     // для кейсов, когда viewmodel имеет пустой конструктор
     private val viewModel2: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+//        App.appComponent.inject()
         super.onCreate(savedInstanceState)
         // from binding
         binding = ActivityWeatherBinding.inflate(layoutInflater).also {

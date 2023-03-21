@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import coil.load
+import com.itis.template.App
 import com.itis.template.di.DataContainer
 import com.itis.template.databinding.ActivityWeatherBinding
 import com.itis.template.domain.weather.GetWeatherUseCase
@@ -14,14 +15,18 @@ import com.itis.template.utils.hideKeyboard
 import com.itis.template.utils.showSnackbar
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     private var binding: ActivityWeatherBinding? = null
 
-    private val getWeatherUseCase: GetWeatherUseCase = DataContainer.weatherUseCase
+    @Inject
+    lateinit var getWeatherUseCase: GetWeatherUseCase
+//    private val getWeatherUseCase: GetWeatherUseCase = DataContainer.weatherUseCase
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        App.appComponent.provideResourceProvider()
         super.onCreate(savedInstanceState)
         // from binding
         binding = ActivityWeatherBinding.inflate(layoutInflater).also {

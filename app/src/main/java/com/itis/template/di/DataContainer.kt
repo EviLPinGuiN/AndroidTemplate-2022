@@ -1,13 +1,17 @@
 package com.itis.template.di
 
 import android.content.Context
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.itis.template.BuildConfig
-import com.itis.template.data.weather.datasource.remote.WeatherApi
-import com.itis.template.data.weather.WeatherRepositoryImpl
 import com.itis.template.data.core.interceptor.ApiKeyInterceptor
+import com.itis.template.data.geolocation.GeoLocationDataSource
+import com.itis.template.data.weather.WeatherRepositoryImpl
+import com.itis.template.data.weather.datasource.remote.WeatherApi
 import com.itis.template.domain.weather.GetWeatherUseCase
 import com.itis.template.utils.AndroidResourceProvider
 import com.itis.template.utils.ResourceProvider
+import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -52,4 +56,16 @@ object DataContainer {
     fun provideResources(
         applicationContext: Context
     ): ResourceProvider = AndroidResourceProvider(applicationContext)
+
+    private var locationClient: FusedLocationProviderClient? = null
+
+    fun provideFusedLocationProviderClient(
+        applicationContext: Context
+    ) {
+        locationClient = LocationServices.getFusedLocationProviderClient(applicationContext)
+    }
+
+    @Suppress("TooGenericExceptionThrown")
+    private val geoLocationDataSource: GeoLocationDataSource
+        get() = GeoLocationDataSource(locationClient ?: throw Exception("locationClient not provided"))
 }

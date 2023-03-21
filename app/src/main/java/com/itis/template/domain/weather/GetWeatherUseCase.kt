@@ -1,6 +1,8 @@
 package com.itis.template.domain.weather
 
-class GetWeatherUseCase(
+import javax.inject.Inject
+
+class GetWeatherUseCase @Inject constructor(
     private val weatherRepository: WeatherRepository
 ) {
 

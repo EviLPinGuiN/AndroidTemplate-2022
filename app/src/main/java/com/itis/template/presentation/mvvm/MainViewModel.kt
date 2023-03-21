@@ -1,6 +1,5 @@
 package com.itis.template.presentation.mvvm
 
-import android.provider.ContactsContract.Data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,9 +16,6 @@ import kotlinx.coroutines.launch
 class MainViewModel(
     private val getWeatherUseCase: GetWeatherUseCase
 ) : ViewModel() {
-
-    private val getWeatherUseCase2: GetWeatherUseCase =
-        DataContainer.weatherUseCase
 
     private val _loading = MutableLiveData<Boolean>(false)
     val loading: LiveData<Boolean>
@@ -73,9 +69,10 @@ class MainViewModel(
             }
         }
 
-        val FactoryExt: ViewModelProvider.Factory = viewModelFactory {
+        fun provideFactory(
+            useCase: GetWeatherUseCase
+        ): ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                val useCase = DataContainer.weatherUseCase
                 // Create a SavedStateHandle for this ViewModel from extras
 //                val savedStateHandle = extras.createSavedStateHandle()
                 MainViewModel(useCase)

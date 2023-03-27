@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private var binding: ActivityWeatherBinding? = null
 
-    @Inject
+//    @Inject
     lateinit var getWeatherUseCase: GetWeatherUseCase
 //    private val getWeatherUseCase: GetWeatherUseCase = DataContainer.weatherUseCase
 

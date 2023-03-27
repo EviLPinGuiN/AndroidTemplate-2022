@@ -1,36 +1,49 @@
-package com.itis.template.presentation.mvvm
+package com.itis.template.presentation.mvvm.main
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
+import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelLazy
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.CreationExtras
 import coil.load
 import com.itis.template.App
 import com.itis.template.databinding.ActivityWeatherBinding
-import com.itis.template.domain.weather.GetWeatherUseCase
 import com.itis.template.utils.showSnackbar
 import timber.log.Timber
 import javax.inject.Inject
 
-class MainMvvmActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var factory: ViewModelProvider.Factory
+
+    @MainThread
+    inline fun <reified VM : ViewModel> ComponentActivity.viewModels(
+        noinline factoryProducer: (() -> ViewModelProvider.Factory) = { factory },
+        noinline extrasProducer: (() -> CreationExtras)? = null
+    ): Lazy<VM> {
+        return viewModels(extrasProducer, factoryProducer)
+    }
+}
+
+class MainMvvmActivity : BaseActivity() {
 
     private var binding: ActivityWeatherBinding? = null
 
-    @Inject
-    lateinit var getWeatherUseCase: GetWeatherUseCase
-
-    private val viewModel: MainViewModel by viewModels {
-        MainViewModel.provideFactory(getWeatherUseCase)
-    }
-
-    // для кейсов, когда viewmodel имеет пустой конструктор
-    private val viewModel2: MainViewModel by viewModels()
+    private val viewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-//        App.appComponent.inject()
+        App.appComponent.plusMainComponent()
+            .build()
+            .inject(this)
         super.onCreate(savedInstanceState)
         // from binding
         binding = ActivityWeatherBinding.inflate(layoutInflater).also {
@@ -48,6 +61,7 @@ class MainMvvmActivity : AppCompatActivity() {
                 true
             }
         }
+        observeViewModel()
     }
 
     private fun observeViewModel() {

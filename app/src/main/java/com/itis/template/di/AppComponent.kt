@@ -1,13 +1,14 @@
 package com.itis.template.di
 
 import android.content.Context
-import com.itis.template.presentation.MainActivity
+import com.itis.template.presentation.mvvm.auth.AuthComponent
+import com.itis.template.presentation.mvvm.main.MainComponent
 import com.itis.template.utils.ResourceProvider
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
-@Component(modules = [AppModule::class, NetworkModule::class, WeatherModule::class])
+@Component(modules = [AppModule::class, NetworkModule::class, WeatherModule::class, ViewModelModule::class])
 @Singleton
 interface AppComponent {
 
@@ -15,7 +16,9 @@ interface AppComponent {
 
     fun provideResourceProvider(): ResourceProvider
 
-    fun inject(weatherActivity: MainActivity)
+    fun plusMainComponent(): MainComponent.Builder
+
+    fun plusAuthComponent(): AuthComponent.Builder
 
     @Component.Builder
     interface Builder {

@@ -8,12 +8,14 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.itis.template.di.DataContainer
+import com.itis.template.di.dagger.DataContainer
 import com.itis.template.domain.weather.GetWeatherUseCase
 import com.itis.template.domain.weather.WeatherInfo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class MainViewModel @Inject constructor(
     private val getWeatherUseCase: GetWeatherUseCase
 ) : ViewModel() {

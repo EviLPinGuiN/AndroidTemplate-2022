@@ -1,4 +1,4 @@
-package com.itis.template.di
+package com.itis.template.di.dagger
 
 import android.content.Context
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -11,7 +11,6 @@ import com.itis.template.data.weather.datasource.remote.WeatherApi
 import com.itis.template.domain.weather.GetWeatherUseCase
 import com.itis.template.utils.AndroidResourceProvider
 import com.itis.template.utils.ResourceProvider
-import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

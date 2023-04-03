@@ -1,8 +1,10 @@
 package com.itis.template.presentation.mvvm.auth
 
+import com.itis.template.di.dagger.FeatureScope
 import dagger.BindsInstance
 import dagger.Subcomponent
 
+@FeatureScope
 @Subcomponent(modules = [AuthModule::class])
 interface AuthComponent {
 

@@ -6,7 +6,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import coil.load
 import com.itis.template.databinding.ActivityWeatherBinding
-import com.itis.template.di.DataContainer
+import com.itis.template.di.dagger.DataContainer
 import com.itis.template.utils.hideKeyboard
 import com.itis.template.utils.showSnackbar
 import moxy.MvpAppCompatActivity

@@ -5,9 +5,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.itis.template.App
+import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-class AuthActivity : AppCompatActivity() {
+class AuthActivity : DaggerAppCompatActivity() {
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
@@ -17,10 +18,10 @@ class AuthActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        App.appComponent.plusAuthComponent()
-            .setCityId(intent.extras?.getInt("arg_id", -1) ?: -1)
-            .build()
-            .inject(this)
+//        App.appComponent.plusAuthComponent()
+//            .setCityId(intent.extras?.getInt("arg_id", -1) ?: -1)
+//            .build()
+//            .inject(this)
         super.onCreate(savedInstanceState)
     }
 }

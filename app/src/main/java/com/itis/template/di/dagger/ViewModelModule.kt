@@ -1,4 +1,4 @@
-package com.itis.template.di
+package com.itis.template.di.dagger
 
 import androidx.lifecycle.ViewModelProvider
 import com.itis.template.utils.AppViewModelFactory

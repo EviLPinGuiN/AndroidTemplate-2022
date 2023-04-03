@@ -1,22 +1,15 @@
 package com.itis.template.presentation.mvp
 
 import android.os.Bundle
-import android.provider.ContactsContract.Data
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.AsyncListUtil.DataCallback
 import coil.load
-import com.itis.template.App
-import com.itis.template.di.DataContainer
+import com.itis.template.di.dagger.DataContainer
 import com.itis.template.databinding.ActivityWeatherBinding
-import com.itis.template.domain.weather.GetWeatherUseCase
-import com.itis.template.presentation.mvp.MainView
 import com.itis.template.utils.hideKeyboard
 import com.itis.template.utils.showSnackbar
-import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class MainMvpActivity : AppCompatActivity(), MainView {

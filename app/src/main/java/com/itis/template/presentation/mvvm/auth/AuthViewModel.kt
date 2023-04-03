@@ -5,7 +5,7 @@ import com.itis.template.domain.auth.LoginUseCase
 import javax.inject.Inject
 
 class AuthViewModel @Inject constructor(
-    private val cityId: Int,
+    @ArgCityId private val cityId: Int,
     private val loginUseCase: LoginUseCase,
 ) : ViewModel() {
 

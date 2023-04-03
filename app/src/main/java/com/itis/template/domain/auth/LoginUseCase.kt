@@ -1,6 +1,8 @@
 package com.itis.template.domain.auth
 
-class LoginUseCase(
+import javax.inject.Inject
+
+class LoginUseCase @Inject constructor(
     private val repository: AuthRepository
 ) {
 

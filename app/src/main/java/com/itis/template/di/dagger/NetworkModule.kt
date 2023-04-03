@@ -1,10 +1,13 @@
-package com.itis.template.di
+package com.itis.template.di.dagger
 
 import com.itis.template.BuildConfig
 import com.itis.template.data.core.interceptor.ApiKeyInterceptor
 import com.itis.template.data.weather.datasource.remote.WeatherApi
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,6 +26,7 @@ annotation class InterceptApiKey
 annotation class InterceptLogger
 
 @Module
+@InstallIn(SingletonComponent::class)
 class NetworkModule {
 
     @Provides

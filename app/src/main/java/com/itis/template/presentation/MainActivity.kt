@@ -8,14 +8,12 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.itis.template.App
-import com.itis.template.di.DataContainer
 import com.itis.template.databinding.ActivityWeatherBinding
 import com.itis.template.domain.weather.GetWeatherUseCase
 import com.itis.template.utils.hideKeyboard
 import com.itis.template.utils.showSnackbar
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 

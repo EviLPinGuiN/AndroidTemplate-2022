@@ -9,6 +9,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -59,4 +60,5 @@ private fun provideRetrofit(
     .client(httpClient)
     .baseUrl(baseUrl)
     .addConverterFactory(gsonFactory)
+    .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
     .build()

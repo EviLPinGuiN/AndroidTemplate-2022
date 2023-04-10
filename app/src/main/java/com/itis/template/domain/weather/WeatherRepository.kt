@@ -1,6 +1,8 @@
 package com.itis.template.domain.weather
 
+import io.reactivex.rxjava3.core.Single
+
 interface WeatherRepository {
 
-    suspend fun getWeather(query: String): WeatherInfo
+    fun getWeather(query: String): Single<WeatherInfo>
 }

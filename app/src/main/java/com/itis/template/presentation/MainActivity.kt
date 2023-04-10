@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 showLoading(true)
-                getWeatherUseCase(query).also { weatherInfo ->
+                getWeatherUseCase(query).subscribe { weatherInfo ->
                     showTemp(weatherInfo.temperature)
                 }
 

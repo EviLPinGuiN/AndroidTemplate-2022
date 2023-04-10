@@ -30,7 +30,7 @@ class MainPresenter(
         presenterScope.launch {
             try {
                 view.showLoading(true)
-                getWeatherUseCase(query).also { weatherInfo ->
+                getWeatherUseCase(query).subscribe { weatherInfo ->
                     view.showTemp(weatherInfo.temperature)
                     view.showWeatherIcon(weatherInfo.icon)
                 }

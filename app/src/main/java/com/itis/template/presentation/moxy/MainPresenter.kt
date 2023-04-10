@@ -31,7 +31,7 @@ class MainMoxyPresenter(
         presenterScope.launch {
             try {
                 viewState.showLoading(true)
-                getWeatherUseCase(query).also { weatherInfo ->
+                getWeatherUseCase(query).subscribe { weatherInfo ->
                     viewState.showTemp(weatherInfo.temperature)
                     viewState.showWeatherIcon(weatherInfo.icon)
                 }

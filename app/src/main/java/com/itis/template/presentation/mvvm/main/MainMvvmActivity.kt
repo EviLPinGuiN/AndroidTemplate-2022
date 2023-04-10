@@ -15,12 +15,6 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import coil.load
 import com.itis.template.databinding.ActivityWeatherBinding
 import com.itis.template.utils.showSnackbar
-import dagger.android.support.DaggerAppCompatActivity
-import dagger.hilt.android.AndroidEntryPoint
-import org.kodein.di.DI
-import org.kodein.di.DIAware
-import org.kodein.di.android.closestDI
-import org.kodein.di.android.x.viewmodel.viewModel
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 import javax.inject.Inject
@@ -39,24 +33,13 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 }
 
-@AndroidEntryPoint
-class MainMvvmActivity : DaggerAppCompatActivity(), DIAware {
+class MainMvvmActivity : AppCompatActivity() {
 
     private var binding: ActivityWeatherBinding? = null
 
-    override val di: DI by closestDI()
-
-    @Inject
-    lateinit var factory: ViewModelProvider.Factory
-
-    private val viewModel: MainViewModel by viewModels { factory }
-    private val viewModelKoin: MainViewModel by inject()
-    private val viewModelKodein: MainViewModel by viewModel()
+    private val viewModel: MainViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-//        App.appComponent.plusMainComponent()
-//            .build()
-//            .inject(this)
         super.onCreate(savedInstanceState)
         // from binding
         binding = ActivityWeatherBinding.inflate(layoutInflater).also {

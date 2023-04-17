@@ -7,9 +7,14 @@ import android.view.inputmethod.EditorInfo
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.itis.template.databinding.ActivityWeatherBinding
 import com.itis.template.utils.showSnackbar
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
 
 class MainMvvmActivity : AppCompatActivity() {
@@ -64,6 +69,16 @@ class MainMvvmActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun observeViewModelFlow() {
+        viewModel.weatherInfoFlow.flowWithLifecycle(lifecycle)
+            .onEach {
+                if (it == null) return@onEach
+                showTemp(it.temperature)
+                showWeatherIcon(it.icon)
+            }
+            .launchIn(lifecycleScope)
     }
 
     private fun showError(error: Throwable) {

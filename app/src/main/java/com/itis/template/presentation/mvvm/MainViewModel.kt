@@ -12,6 +12,17 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.itis.template.di.DataContainer
 import com.itis.template.domain.weather.GetWeatherUseCase
 import com.itis.template.domain.weather.WeatherInfo
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -35,21 +46,43 @@ class MainViewModel(
 
     val navigateDetails = MutableLiveData<Boolean?>(null)
 
+    private val _loadingFlow = MutableStateFlow<Boolean>(false)
+    val loadingFlow: StateFlow<Boolean>
+        get() = _loadingFlow.asStateFlow()
+
+    private val _errorFlow = MutableStateFlow<Throwable?>(null)
+    val errorFlow: StateFlow<Throwable?>
+        get() = _errorFlow.asStateFlow()
+
+    private val _weatherInfoFlow = MutableStateFlow<WeatherInfo?>(null)
+    val weatherInfoFlow: StateFlow<WeatherInfo?>
+        get() = _weatherInfoFlow.asStateFlow()
+
     fun onLoadClick(query: String) {
         loadWeather(query)
     }
 
+    val weatherInfoFlowState: StateFlow<WeatherInfo?> = flowOf("Kazan")
+        .mapLatest {
+            getWeatherUseCase(it)
+        }
+        .stateIn(
+            viewModelScope,
+            started = SharingStarted.WhileSubscribed(3000),
+            initialValue = null
+        )
+
     private fun loadWeather(query: String) {
         viewModelScope.launch {
             try {
-                _loading.value = true
+                _loadingFlow.emit(true)
                 getWeatherUseCase(query).also { weatherInfo ->
-                    _weatherInfo.value = weatherInfo
+                    _weatherInfoFlow.emit(weatherInfo)
                 }
             } catch (error: Throwable) {
-                _error.value = error
+                _errorFlow.emit(error)
             } finally {
-                _loading.value = false
+                _loadingFlow.emit(false)
             }
         }
     }

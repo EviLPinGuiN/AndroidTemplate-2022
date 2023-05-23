@@ -6,13 +6,11 @@ import com.itis.template.domain.weather.WeatherInfo
 import com.itis.template.domain.weather.WeatherRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
 
 class WeatherRepositoryImpl(
     private val api: WeatherApi,
     private val dispatcherIO: CoroutineDispatcher = Dispatchers.IO,
-    private val dispatcherDefault: CoroutineDispatcher = Dispatchers.Default
 ) : WeatherRepository {
 
     override suspend fun getWeather(
